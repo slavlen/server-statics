@@ -1,0 +1,28 @@
+# Users configuration
+users:
+  - name: user1
+    shell: /bin/bash
+    state: present
+    ssh_key: "ssh-rsa"
+    password: "password1"
+    groups: ["sudo"]
+
+# Packages to install
+packages:
+  - htop
+  - ncdu
+  - git
+  - nano
+
+# Nginx configuration
+nginx:
+  root_dir: /var/www/images
+  cache_time: 1h
+
+static_files:
+  - name: image1.jpg
+    url: https://i.imgur.com/1.jpg
+  - name: image2.jpg
+    url: https://i.imgur.com/2.jpg
+
+static_root: /var/www/images
