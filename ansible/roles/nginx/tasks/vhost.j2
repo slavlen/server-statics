@@ -1,0 +1,13 @@
+server {
+    listen 80;
+
+    location /images {
+        root {{ nginx.static_dir }};
+        autoindex on;
+        expires {{ nginx.cache_time }};
+        gzip on;
+    }
+
+    error_log /var/log/nginx/error.log;
+    access_log /var/log/nginx/access.log;
+}
