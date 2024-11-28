@@ -1,9 +1,9 @@
 - name: Setup static server
   hosts: all
   roles:
-    - users
-    - zsh
-    - ssh
+    # - users
+    # - zsh
+    # - ssh
     - packages
-    - nginx
-    - static
+    # - nginx
+    # - static

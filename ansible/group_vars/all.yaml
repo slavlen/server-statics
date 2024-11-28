@@ -16,7 +16,7 @@ packages:
 
 # Nginx configuration
 nginx:
-  root_dir: /var/www/images
+  static_dir: /var/www/images
   cache_time: 1h
 
 static_files:
@@ -24,5 +24,3 @@ static_files:
     url: https://i.imgur.com/1.jpg
   - name: image2.jpg
     url: https://i.imgur.com/2.jpg
-
-static_root: /var/www/images
