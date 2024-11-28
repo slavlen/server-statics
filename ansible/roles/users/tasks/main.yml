@@ -1,0 +1,31 @@
+- name: Manage users
+  ansible.builtin.user:
+    name: "{{ item.name }}"
+    shell: "{{ item.shell }}"
+    state: "{{ item.state }}"
+    groups: "{{ item.groups | join(',') }}"
+    password: "{{ item.password | password_hash('sha512') }}"
+  loop: "{{ users }}"
+  when: item.state == "present"
+
+- name: Ensure .ssh directory exists for user
+  file:
+    path: "/home/{{ item.name }}/.ssh"
+    state: directory
+    mode: '0700'
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+  become: yes
+  loop: "{{ users }}"
+  when: item.state == 'present'
+
+- name: Add SSH key for user
+  copy:
+    content: "{{ item.ssh_key }}"
+    dest: "/home/{{ item.name }}/.ssh/authorized_keys"
+    mode: '0600'
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+  become: yes
+  loop: "{{ users }}"
+  when: item.state == 'present' and item.ssh_key is defined

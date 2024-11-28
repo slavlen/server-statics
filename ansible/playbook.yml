@@ -1,7 +1,7 @@
 - name: Setup static server
   hosts: all
   roles:
-    # - users
+    - users
     # - zsh
     # - ssh
     - packages
