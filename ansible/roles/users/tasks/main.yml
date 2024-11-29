@@ -18,12 +18,10 @@
   loop: "{{ users }}"
   when: item.state == 'present'
 
-- name: Add SSH key for user
-  copy:
-    content: "{{ item.ssh_key }}"
-    dest: "/home/{{ item.name }}/.ssh/authorized_keys"
-    mode: '0600'
-    owner: "{{ item.name }}"
-    group: "{{ item.name }}"
+- name: Add SSH authorized keys
+  ansible.posix.authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ item.ssh_key }}"
+    state: present
   loop: "{{ users }}"
-  when: item.state == 'present' and item.ssh_key is defined
+  when: item.ssh_key | length > 0
