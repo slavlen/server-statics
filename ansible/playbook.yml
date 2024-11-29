@@ -1,5 +1,6 @@
 - name: Setup static server
   hosts: all
+  become: true
   roles:
     - users
     - zsh

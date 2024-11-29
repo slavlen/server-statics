@@ -15,7 +15,6 @@
     mode: '0700'
     owner: "{{ item.name }}"
     group: "{{ item.name }}"
-  become: yes
   loop: "{{ users }}"
   when: item.state == 'present'
 
@@ -26,6 +25,5 @@
     mode: '0600'
     owner: "{{ item.name }}"
     group: "{{ item.name }}"
-  become: yes
   loop: "{{ users }}"
   when: item.state == 'present' and item.ssh_key is defined
