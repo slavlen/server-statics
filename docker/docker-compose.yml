@@ -9,5 +9,5 @@ services:
       - "22:22"
       - "80:80"
     volumes:
-      - ./ansible:/ansible
+      - ../ansible:/ansible
     container_name: ansible_test
