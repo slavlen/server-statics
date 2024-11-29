@@ -3,32 +3,18 @@
     name: zsh
     state: present
 
-- name: Copy zsh configuration template
-  ansible.builtin.template:
-    src: zshrc.j2
-    dest: /home/{{ item.name }}/.zshrc
-    owner: "{{ item.name }}"
-    group: "{{ item.name }}"
-    mode: 0644
-  loop: "{{ users }}"
-  when: item.shell == "/bin/zsh"
+- name: Install zsh
+  ansible.builtin.package:
+    name: zsh
+    state: present
 
-- name: Install Oh My Zsh for users
-  become: false
-  shell: |
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" --unattended
+- name: Download and Install Oh-My-Zsh for users
+  ansible.builtin.shell:
+    cmd: |
+      wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O /home/{{ item.name }}/install.sh
+      sh /home/{{ item.name }}/install.sh --unattended
   args:
-    executable: /bin/bash
-    creates: /home/{{ item.name }}/.oh-my-zsh
-  loop: "{{ users }}"
-  when: item.shell == "/bin/zsh"
-
-- name: Copy Zsh configuration template
-  ansible.builtin.template:
-    src: zshrc.j2
-    dest: /home/{{ item.name }}/.zshrc
-    owner: "{{ item.name }}"
-    group: "{{ item.name }}"
-    mode: 0644
+    chdir: "/home/{{ item.name }}"
+  become_user: "{{ item.name }}"
   loop: "{{ users }}"
   when: item.shell == "/bin/zsh"
