@@ -3,8 +3,8 @@
   become: true
   roles:
     - users
-    - zsh
     - packages
+    - zsh
     - nginx
     - static
     - ssh

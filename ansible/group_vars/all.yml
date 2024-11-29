@@ -3,7 +3,14 @@ users:
   - name: user1
     shell: /bin/bash
     state: present
-    ssh_key: "ssh-rsa AAAAB"
+    ssh_key: "ssh-rsa AAAA..."
+    password: "password1"
+    groups: ["sudo"]
+
+  - name: user2
+    shell: /bin/zsh
+    state: present
+    ssh_key: "ssh-rsa AAAA..."
     password: "password1"
     groups: ["sudo"]
 
