@@ -1,0 +1,7 @@
+users:
+  - name: user
+    shell: /bin/bash
+    state: present
+    ssh_key: "ssh-rsa AAAA..."
+    password: "1234qwerty"
+    groups: ["sudo"]

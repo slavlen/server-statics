@@ -9,3 +9,23 @@
     dest: /home/{{ item.name }}/.oh-my-zsh
   loop: "{{ users }}"
   when: item.shell == "/bin/zsh"
+
+- name: Copy zsh configuration template
+  ansible.builtin.template:
+    src: zshrc.j2
+    dest: /home/{{ item.name }}/.zshrc
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    mode: 0644
+  loop: "{{ users }}"
+  when: item.shell == "/bin/zsh"
+
+- name: Change ownership of .oh-my-zsh
+  ansible.builtin.file:
+    path: /home/{{ item.name }}/.oh-my-zsh
+    owner: "{{ item.name }}"
+    group: "{{ item.name }}"
+    state: directory
+    recurse: true
+  loop: "{{ users }}"
+  when: item.shell == "/bin/zsh"
