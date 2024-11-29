@@ -5,7 +5,7 @@
 
 - name: Configure Nginx
   ansible.builtin.template:
-    src: ./vhost.j2
+    src: vhost.j2
     dest: /etc/nginx/sites-available/default
 
 - name: Enable Nginx site
