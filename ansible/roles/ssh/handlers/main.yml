@@ -1,0 +1,5 @@
+- name: Reload SSH configuration gracefully
+  ansible.builtin.shell:
+    cmd: /usr/sbin/sshd -t && kill -HUP $(cat /var/run/sshd.pid)
+  ignore_errors: false
+  listen: "Reload SSH"

@@ -14,7 +14,15 @@
     dest: /etc/nginx/sites-enabled/default
     state: link
 
-- name: Restart Nginx
-  ansible.builtin.service:
-    name: nginx
-    state: restarted
+# - name: Restart Nginx
+#   ansible.builtin.service:
+#     name: nginx
+#     state: restarted
+
+- name: Update Nginx configuration
+  ansible.builtin.lineinfile:
+    path: /etc/nginx/nginx.conf
+    line: "worker_processes auto;"
+    state: present
+    validate: "nginx -t -c %s"
+  notify: Reload Nginx

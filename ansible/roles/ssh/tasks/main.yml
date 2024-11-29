@@ -3,24 +3,10 @@
     path: /etc/ssh/sshd_config
     line: "{{ item }}"
     state: present
+    validate: "/usr/sbin/sshd -t -f %s"
   loop:
     - "PermitRootLogin no"
     - "PasswordAuthentication no"
     - "LogLevel VERBOSE"
     - "X11Forwarding no"
-
-- name: Validate SSH configuration
-  ansible.builtin.command:
-    cmd: sshd -t
-  register: sshd_validation
-  failed_when: sshd_validation.rc != 0
-
-# - name: Reload SSH service
-#   ansible.builtin.command:
-#     cmd: systemctl reload ssh
-#   when: sshd_validation.rc == 0
-
-- name: Reload SSH configuration gracefully
-  ansible.builtin.shell:
-    cmd: /usr/sbin/sshd -t && kill -HUP $(cat /var/run/sshd.pid)
-  when: sshd_validation.rc == 0
+  notify: Reload SSH
