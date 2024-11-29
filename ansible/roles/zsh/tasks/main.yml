@@ -3,11 +3,6 @@
     name: zsh
     state: present
 
-- name: Install zsh
-  ansible.builtin.package:
-    name: zsh
-    state: present
-
 - name: Download and Install Oh-My-Zsh for users
   ansible.builtin.shell:
     cmd: |
