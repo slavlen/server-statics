@@ -2,7 +2,7 @@ server {
     listen 80;
 
     location /images {
-        root {{ nginx.static_dir }};
+        root /var/www;
         autoindex on;
         expires {{ nginx.cache_time }};
         gzip on;

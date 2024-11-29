@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "2222:22"
-      - "8080:80"
+      - "22:22"
+      - "80:80"
     volumes:
       - ./ansible:/ansible
     container_name: ansible_test

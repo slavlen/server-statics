@@ -2,8 +2,8 @@
   hosts: all
   roles:
     - users
-    # - zsh
-    # - ssh
+    - zsh
     - packages
-    # - nginx
-    # - static
+    - nginx
+    - static
+    - ssh

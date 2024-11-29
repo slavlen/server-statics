@@ -1,0 +1,11 @@
+- name: Create static directory
+  ansible.builtin.file:
+    path: "{{ nginx.static_dir }}"
+    state: directory
+    mode: '0755'
+
+- name: Download static files
+  ansible.builtin.get_url:
+    url: "{{ item }}"
+    dest: "{{ nginx.static_dir }}/{{ item | basename }}"
+  loop: "{{ static_files }}"
