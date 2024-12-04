@@ -22,11 +22,3 @@
     dest: /etc/nginx/sites-enabled/default
     state: link
   notify: Reload Nginx
-  
-- name: Update Nginx configuration
-  ansible.builtin.lineinfile:
-    path: /etc/nginx/nginx.conf
-    line: "worker_processes auto;"
-    state: present
-    validate: "nginx -t -c %s"
-  notify: Reload Nginx

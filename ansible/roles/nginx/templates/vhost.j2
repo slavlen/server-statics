@@ -6,6 +6,7 @@ server {
         autoindex on;
         expires {{ nginx.cache_time }};
         gzip on;
+        gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
     }
 
     error_log /var/log/nginx/error.log;
