@@ -3,11 +3,17 @@
     name: zsh
     state: present
 
-- name: Download and Install Oh-My-Zsh for users
-  ansible.builtin.shell:
-    cmd: |
-      wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O /home/{{ item.name }}/install.sh
-      sh /home/{{ item.name }}/install.sh --unattended
+- name: Download Oh-My-Zsh installer
+  ansible.builtin.get_url:
+    url: https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    dest: /home/{{ item.name }}/install.sh
+    mode: "0755"
+  loop: "{{ users }}"
+  when: item.shell == "/bin/zsh"
+
+- name: Install Oh-My-Zsh
+  ansible.builtin.command:
+    cmd: sh install.sh --unattended
   args:
     chdir: "/home/{{ item.name }}"
   become_user: "{{ item.name }}"
